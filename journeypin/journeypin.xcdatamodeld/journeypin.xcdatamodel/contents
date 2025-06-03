@@ -8,18 +8,18 @@
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="pinphoto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photo" inverseName="photopin" inverseEntity="Photo"/>
+        <relationship name="pinphoto" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="photopin" inverseEntity="Photo"/>
         <relationship name="pintrip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="trippin" inverseEntity="Trip"/>
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="tripname" optional="YES" attributeType="String"/>
-        <relationship name="trippin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="pintrip" inverseEntity="Pin"/>
+        <relationship name="trippin" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pin" inverseName="pintrip" inverseEntity="Pin"/>
         <relationship name="tripuser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="usertrip" inverseEntity="User"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="username" optional="YES" attributeType="String"/>
-        <relationship name="usertrip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripuser" inverseEntity="Trip"/>
+        <relationship name="usertrip" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripuser" inverseEntity="Trip"/>
     </entity>
 </model>
