@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.swift
 //  journeypin
 //
-//  Created by Al Sneed on 27/05/2025.
+//  Created by Al Sneed on 03/06/2025.
 //
 //
 
@@ -17,7 +17,24 @@ extension User {
     }
 
     @NSManaged public var username: String?
-    @NSManaged public var usertrip: Trip?
+    @NSManaged public var usertrip: NSSet?
+
+}
+
+// MARK: Generated accessors for usertrip
+extension User {
+
+    @objc(addUsertripObject:)
+    @NSManaged public func addToUsertrip(_ value: Trip)
+
+    @objc(removeUsertripObject:)
+    @NSManaged public func removeFromUsertrip(_ value: Trip)
+
+    @objc(addUsertrip:)
+    @NSManaged public func addToUsertrip(_ values: NSSet)
+
+    @objc(removeUsertrip:)
+    @NSManaged public func removeFromUsertrip(_ values: NSSet)
 
 }
 

@@ -2,7 +2,7 @@
 //  Trip+CoreDataClass.swift
 //  journeypin
 //
-//  Created by Al Sneed on 27/05/2025.
+//  Created by Al Sneed on 03/06/2025.
 //
 //
 
