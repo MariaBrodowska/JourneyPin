@@ -10,7 +10,7 @@ import CoreData
 
 struct JourneyListView: View {
     @State var showAdd: Bool = false;
-    @Binding var currentUser: User?;
+    @EnvironmentObject var currentUser: User;
     @State var travels: [String] = [
             "Wycieczka do Włoch",
             "Wypad w góry"
@@ -24,7 +24,7 @@ struct JourneyListView: View {
             .navigationTitle("Podróże")
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: AddJourneyView(user: $currentUser)) {
+                            NavigationLink(destination: AddJourneyView().environmentObject(currentUser)) {
                                 Image(systemName: "plus")
                             }
                         }

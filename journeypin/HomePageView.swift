@@ -60,7 +60,7 @@ struct HomePageView: View {
                             
                             VStack(spacing: 20) {
                                 if(!loggedin.isEmpty) {
-                                    NavigationLink(destination: JourneysListView()) {
+                                    NavigationLink(destination: JourneyListView().environmentObject(loggedin[0])) {
                                         Text("Twoje podróże")
                                             .fontWeight(.semibold)
                                             .frame(maxWidth: 200)

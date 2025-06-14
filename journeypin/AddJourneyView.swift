@@ -17,7 +17,7 @@ struct AddJourneyView: View {
     @State private var locationName: String = "Nie wybrano"
     
     @State var showMapView: Bool = false
-    @Binding var user: User?
+    @EnvironmentObject var user: User
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack(alignment: .leading){
