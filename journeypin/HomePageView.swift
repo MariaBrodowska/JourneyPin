@@ -22,7 +22,7 @@ struct HomePageView: View {
     private func handleSwitchUser() {
         print("Switch User button tapped. Implement user switching logic here.")
     }
-
+    @State var currentUser: User? = nil;
     var body: some View {
         NavigationStack {
             ZStack {
@@ -71,7 +71,7 @@ struct HomePageView: View {
                                 }
 
                                 
-                                Button(action: handleSwitchUser) {
+                                NavigationLink(destination: UserPickView(currentUser: $currentUser)) {
                                     Text("Switch User")
                                         .fontWeight(.semibold)
                                         .frame(maxWidth: 200)
@@ -79,6 +79,11 @@ struct HomePageView: View {
                                         .background()
                                         .foregroundColor(.accentColor)
                                         .cornerRadius(20)
+                                }
+                                if(currentUser != nil) {
+                                    Text("Wybrano profil: \(currentUser!.username!)")
+                                } else {
+                                    Text("Wybierz profil")
                                 }
                             }
                             .padding(.horizontal, 40)
@@ -92,11 +97,3 @@ struct HomePageView: View {
     }
 }
 
-// MARK: - Preview
-struct FrontPageView_Previews: PreviewProvider {
-    static var previews:	 some View {
-        HomePageView()
-        HomePageView()
-            .preferredColorScheme(.dark) // Also preview in dark mode
-    }
-}
