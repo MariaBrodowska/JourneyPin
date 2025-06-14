@@ -9,12 +9,12 @@ import SwiftUI
 
 // This is a placeholder for where "Your Journeys" will navigate to.
 // You'll replace this with your actual Journeys List view.
-struct JourneysListView: View {
-    var body: some View {
-        Text("Your Journeys List Will Appear Here")
-            .navigationTitle("My Journeys") // Example title for the next screen
-    }
-}
+//struct JourneysListView: View {
+//    var body: some View {
+//        Text("Your Journeys List Will Appear Here")
+//            .navigationTitle("My Journeys") // Example title for the next screen
+//    }
+//}
 
 struct HomePageView: View {
 
@@ -60,7 +60,7 @@ struct HomePageView: View {
                             
                             VStack(spacing: 20) {
                                 
-                                NavigationLink(destination: JourneysListView()) {
+                                NavigationLink(destination: JourneyListView(currentUser: $currentUser)) {
                                     Text("Your Journeys")
                                         .fontWeight(.semibold)
                                         .frame(maxWidth: 200)
