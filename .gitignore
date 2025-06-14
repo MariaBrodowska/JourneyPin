@@ -1,0 +1,41 @@
+# macOS system
+.DS_Store
+
+# Xcode build files
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# SwiftPM
+.build/
+.swiftpm/
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Archives & symbols
+*.xcarchive
+*.dSYM
+*.dSYM.zip
+
+# Playground
+timeline.xctimeline
+playground.xcworkspace
+
+# iOS Injection
+iOSInjectionProject/
+
+# Accio
+.accio/
+Dependencies/
+
+# Ignore this if you're not using Pods
+# Pods/
+*.xcuserstate

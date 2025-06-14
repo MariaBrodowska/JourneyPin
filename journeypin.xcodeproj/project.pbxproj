@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C9198962DFDB8220028A9EB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4C9198952DFDB8160028A9EB /* .gitignore */; };
 		D68AC9EE2DEEF41D00004335 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68AC9EC2DEEF41D00004335 /* User+CoreDataClass.swift */; };
 		D68AC9EF2DEEF41D00004335 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68AC9EA2DEEF41D00004335 /* Trip+CoreDataClass.swift */; };
 		D68AC9F02DEEF41D00004335 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68AC9EB2DEEF41D00004335 /* Trip+CoreDataProperties.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		4C7A9ABD2DE6025B006E505D /* journeypin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = journeypin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C9198952DFDB8160028A9EB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D68AC9E62DEEF41D00004335 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D68AC9E72DEEF41D00004335 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D68AC9E82DEEF41D00004335 /* Pin+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				D68AC9ED2DEEF41D00004335 /* User+CoreDataProperties.swift */,
 				4C7A9ABF2DE6025B006E505D /* journeypin */,
 				4C7A9ABE2DE6025B006E505D /* Products */,
+				4C9198952DFDB8160028A9EB /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C9198962DFDB8220028A9EB /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
