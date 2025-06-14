@@ -13,7 +13,7 @@ struct journeypinApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomePageView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
