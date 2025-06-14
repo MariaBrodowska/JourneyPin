@@ -12,7 +12,6 @@ struct UserPickView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss;
     @State var showAdd: Bool = false;
-    @Binding var currentUser: User?;
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)],
         animation: .default)
@@ -21,20 +20,20 @@ struct UserPickView: View {
     var body: some View {
             List {
                 ForEach(items) { item in
-                    Button(action: {
-                        switchUser(pickedUser: item)
-                    }, label: {
-                        Text(item.username!)
-                    })
+                    Text("\(item.username!)")
+                        .onTapGesture {
+                            switchUser(pickedUser: item)
+                        }
                 }
                 .onDelete(perform: deleteItems)
+                
             }
             .toolbar {
                 ToolbarItem {
                     Button(action: {
                         showAdd.toggle();
                     }, label:{
-                            Label("Add user", systemImage: "plus")
+                            Label("Dodaj profil", systemImage: "plus")
                     })
                     .sheet(isPresented: $showAdd) {
                         AddUserView()
@@ -44,7 +43,16 @@ struct UserPickView: View {
             }
         }
     private func switchUser(pickedUser: User) {
-        currentUser = pickedUser;
+        for item in items {
+            item.lastActive = false;
+        }
+        pickedUser.lastActive = true;
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
         dismiss();
     }
     private func deleteItems(offsets: IndexSet) {
@@ -64,6 +72,6 @@ struct UserPickView: View {
 
 
 #Preview {
-    UserPickView(currentUser: .constant(nil)).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    UserPickView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         
 }
