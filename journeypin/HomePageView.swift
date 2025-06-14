@@ -17,12 +17,12 @@ import SwiftUI
 //}
 
 struct HomePageView: View {
-
-    // Placeholder function for "Switch user" logic
-    private func handleSwitchUser() {
-        print("Switch User button tapped. Implement user switching logic here.")
-    }
-    @State var currentUser: User? = nil;
+    @Environment(\.managedObjectContext) private var viewContext;
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)],
+        predicate: NSPredicate(format: "lastActive == YES"),
+        animation: .default)
+    private var loggedin: FetchedResults<User>
     var body: some View {
         NavigationStack {
             ZStack {
@@ -48,7 +48,7 @@ struct HomePageView: View {
                                     .fontWeight(.bold)
                                     .foregroundStyle(Color.white.opacity(0.85))
 
-                                Text("Photo saving redefined")
+                                Text("Nowy sposób na organizację wspomnień")
                                     .font(.title3)
                                     .foregroundColor(.white.opacity(0.85))
                                     .multilineTextAlignment(.center)
@@ -59,20 +59,19 @@ struct HomePageView: View {
 
                             
                             VStack(spacing: 20) {
-                                
-                                NavigationLink(destination: JourneyListView(currentUser: $currentUser)) {
-                                    Text("Your Journeys")
-                                        .fontWeight(.semibold)
-                                        .frame(maxWidth: 200)
-                                        .padding()
-                                        .background(Color.teal)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(20)
+                                if(!loggedin.isEmpty) {
+                                    NavigationLink(destination: JourneyListView().environmentObject(loggedin[0])) {
+                                        Text("Twoje podróże")
+                                            .fontWeight(.semibold)
+                                            .frame(maxWidth: 200)
+                                            .padding()
+                                            .background(Color.teal)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(20)
+                                    }
                                 }
-
-                                
-                                NavigationLink(destination: UserPickView(currentUser: $currentUser)) {
-                                    Text("Switch User")
+                                NavigationLink(destination: UserPickView()) {
+                                    Text("Zmień profil")
                                         .fontWeight(.semibold)
                                         .frame(maxWidth: 200)
                                         .padding()
@@ -80,10 +79,12 @@ struct HomePageView: View {
                                         .foregroundColor(.accentColor)
                                         .cornerRadius(20)
                                 }
-                                if(currentUser != nil) {
-                                    Text("Wybrano profil: \(currentUser!.username!)")
+                                if(!loggedin.isEmpty) {
+                                    Text("Wybrano profil: \(loggedin[0].username!)")
+                                        .foregroundStyle(Color.white)
                                 } else {
-                                    Text("Wybierz profil")
+                                    Text("Nie wybrano profilu")
+                                        .foregroundStyle(Color.white)
                                 }
                             }
                             .padding(.horizontal, 40)
