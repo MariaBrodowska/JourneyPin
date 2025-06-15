@@ -67,7 +67,8 @@ struct AddJourneyView: View {
             }
         }
         .sheet(isPresented: $showMapView) {
-            MapView(selectedLocation: $selectedLocation, locationName: $locationName)
+//            MapView(selectedLocation: $selectedLocation, locationName: $locationName)
+            AddLocation()
         }
     }
 }
