@@ -44,8 +44,7 @@ struct AddJourneyView: View {
 
             Section(header: Text("Lokalizacja").font(.title2)) {
                 VStack(alignment: .leading) {
-                    Text("Pinezki").font(.headline)
-
+                    Divider()
                     ForEach(pins.indices, id: \.self) { index in
                         let pin = pins[index]
                         HStack {
@@ -62,12 +61,13 @@ struct AddJourneyView: View {
                             }
                             Spacer()
                         }
+                        Divider()
                     }
 
 
                     HStack {
                         Spacer()
-                        Button("Wybierz na mapie") {
+                        Button("Dodaj nową pinezkę") {
                             showMapView.toggle()
                         }
                         .frame(maxWidth: 200)
@@ -87,39 +87,28 @@ struct AddJourneyView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Zapisz") {
-//                    let newTrip = Trip(context: viewContext)
-//                    newTrip.tripname = tripName
-//                    newTrip.date = tripDate
-//                    newTrip.notes = tripNotes
-//                    newTrip.tripuser = user
-//
-//                    for pinData in pins {
-//                        let pin = Pin(context: viewContext)
-//                        pin.lat = pinData.lat
-//                        pin.lon = pinData.lon
-//                        pin.name = pinData.title
-//                        pin.pintrip = newTrip
-//
-//                        if let imageName = pinData.imageName,
-//                           let image = UIImage(named: imageName),
-//                           let imageData = image.jpegData(compressionQuality: 0.8) {
-//                            let photo = Photo(context: viewContext)
-//                            photo.photo = imageData
-//                            photo.photopin = pin
-//                            pin.addToPinphoto(photo)
-//                        }
-//
-//                        newTrip.addToTrippin(pin)
-//                    }
-//
-//                    user.addToUsertrip(newTrip)
-//
-//                    do {
-//                        try viewContext.save()
-//                        dismiss()
-//                    } catch {
-//                        print("Błąd zapisu: \(error.localizedDescription)")
-//                    }
+                    let newTrip = Trip(context: viewContext)
+                    newTrip.tripname = tripName
+                    newTrip.date = tripDate
+                    newTrip.notes = tripNotes
+                    newTrip.tripuser = user
+
+                    for pinData in pins {
+                        let pin = Pin(context: viewContext)
+                        pin.lat = pinData.lat
+                        pin.lon = pinData.lon
+                        pin.name = pinData.title
+                        pin.pintrip = newTrip
+                        pin.photo = pinData.imageName
+                        newTrip.addToTrippin(pin)
+                    }
+                    user.addToUsertrip(newTrip)
+                    do {
+                        try viewContext.save()
+                        dismiss()
+                    } catch {
+                        print("Błąd zapisu: \(error.localizedDescription)")
+                    }
                 }
                 .disabled(tripName.isEmpty)
             }
@@ -134,7 +123,7 @@ struct AddJourneyView: View {
             if done {
                 showMapView = false
                 isDone = false
-                print("Dodano nową pinezkę: journey view \(pins.count)")
+                print("journey view \(pins.count)")
             }
         }
     }

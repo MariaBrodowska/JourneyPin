@@ -18,7 +18,6 @@ struct MapView: View {
     @Binding var selectedImageName: String?
     @Binding var selectedLat: Double?
     @Binding var selectedLon: Double?
-    @Binding var isDone: Bool
     
     @State private var region: MKCoordinateRegion
     init(
@@ -26,14 +25,12 @@ struct MapView: View {
                selectedLat: Binding<Double?>,
                selectedLon: Binding<Double?>,
                pinTitle: Binding<String>,
-               selectedImageName: Binding<String?>,
-               isDone: Binding<Bool>
+               selectedImageName: Binding<String?>
     ) {
         self._pinTitle = pinTitle
         self._selectedImageName = selectedImageName
         self._selectedLat = selectedLat
         self._selectedLon = selectedLon
-        self._isDone = isDone
 
         let region = MKCoordinateRegion(
             center: coordinate,
@@ -65,27 +62,27 @@ struct MapView: View {
             //wspolrzedne
             VStack {
                 Spacer()
-                Text("📍 \(region.center.latitude), \(region.center.longitude)")
-                    .padding(8)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(10)
+                HStack{
+                    Text("📍 \(region.center.latitude), \(region.center.longitude)")
+                        .padding(8)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(10)
+                        .padding()
+                    Button("Zaznacz") {
+                        selectedLat = region.center.latitude
+                        selectedLon = region.center.longitude
+                    }
                     .padding()
+                    .background(.blue)
+                    .foregroundStyle(.white)
+                    .cornerRadius(20)
+                }
                 
                 TextField("Wpisz tytuł pinezki", text: $pinTitle)
                     .padding(8)
                     .background(.white)
                     .cornerRadius(10)
                     .padding()
-                
-                Button("Zapisz") {
-                    selectedLat = region.center.latitude
-                    selectedLon = region.center.longitude
-//                    isDone = true
-                }
-                .padding()
-                .background(.blue)
-                .foregroundStyle(.white)
-                .cornerRadius(10)
                 
                 HStack{
                     Picker("Wybierz zdjęcie", selection: $selectedImageName) {

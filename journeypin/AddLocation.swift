@@ -30,8 +30,7 @@ struct AddLocation: View {
                     selectedLat: $selectedLat,
                     selectedLon: $selectedLon,
                     pinTitle: $pinTitle,
-                    selectedImageName: $selectedImageName,
-                    isDone: $isDone
+                    selectedImageName: $selectedImageName
                 )
                 Spacer()
             }
@@ -43,7 +42,6 @@ struct AddLocation: View {
                         dismiss()
                     }
                 }
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Zapisz") {
                         guard let lat = selectedLat, let lon = selectedLon else {
@@ -53,12 +51,13 @@ struct AddLocation: View {
 
                         let newPin = PinData(lat: lat, lon: lon, title: pinTitle, imageName: selectedImageName)
                         tempPins.append(newPin)
-                        print("Dodano nową pinezkę: \(tempPins.count)")
+//                        print("Dodano nową pinezkę: \(tempPins.count)")
                         isDone = true
                         dismiss()
                     }
                     .disabled(selectedLat == nil || selectedLon == nil)
                 }
+
             }
 
         }
