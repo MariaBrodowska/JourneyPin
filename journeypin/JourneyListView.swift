@@ -11,15 +11,29 @@ import CoreData
 struct JourneyListView: View {
     @State var showAdd: Bool = false;
     @EnvironmentObject var currentUser: User;
-    @State var travels: [String] = [
-            "Wycieczka do Włoch",
-            "Wypad w góry"
-    ]
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+            entity: Trip.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \Trip.date, ascending: false)],
+            predicate: nil,
+            animation: .default
+        ) private var allTrips: FetchedResults<Trip>
     
     var body: some View {
         NavigationStack {
-            ForEach(travels, id: \.self) { travel in
-                        Text(travel)
+                    List {
+                        ForEach(filteredTrips) { trip in
+                            VStack(alignment: .leading) {
+                                Text(trip.tripname ?? "Bez nazwy")
+                                    .font(.headline)
+                                if let date = trip.date {
+                                    Text(date.formatted(date: .abbreviated, time: .omitted))
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                        }
                     }
             .navigationTitle("Podróże")
                     .toolbar {
@@ -30,5 +44,8 @@ struct JourneyListView: View {
                         }
                     }
                 }
+    }
+    private var filteredTrips: [Trip] {
+        allTrips.filter { $0.tripuser == currentUser }
     }
 }

@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.swift
 //  journeypin
 //
-//  Created by Al Sneed on 14/06/2025.
+//  Created by maria on 15/06/2025.
 //
 //
 
@@ -16,8 +16,8 @@ extension User {
         return NSFetchRequest<User>(entityName: "User")
     }
 
-    @NSManaged public var username: String?
     @NSManaged public var lastActive: Bool
+    @NSManaged public var username: String?
     @NSManaged public var usertrip: NSSet?
 
 }

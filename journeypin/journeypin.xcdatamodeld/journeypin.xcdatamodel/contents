@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788" systemVersion="24E263" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="23H311" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="photo" optional="YES" attributeType="Binary"/>
-        <relationship name="photopin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="pinphoto" inverseEntity="Pin"/>
     </entity>
     <entity name="Pin" representedClassName="Pin" syncable="YES">
-        <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="pinphoto" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="photopin" inverseEntity="Photo"/>
+        <attribute name="photo" optional="YES" attributeType="String"/>
         <relationship name="pintrip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="trippin" inverseEntity="Trip"/>
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES">

@@ -8,19 +8,28 @@
 import SwiftUI
 import CoreLocation
 
+struct PinData: Identifiable {
+    var id = UUID()
+    var lat: Double
+    var lon: Double
+    var title: String
+    var imageName: String?
+}
+
 struct AddJourneyView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var user: User
+    @Environment(\.dismiss) var dismiss
+
     @State var tripName: String = ""
     @State var tripDate: Date = Date()
     @State var tripNotes: String = ""
-    
-    @State private var selectedLocation: CLLocationCoordinate2D?
-    @State private var locationName: String = "Nie wybrano"
-    
+    @State private var pins: [PinData] = []
+    @State private var isDone: Bool = false
     @State var showMapView: Bool = false
-    @EnvironmentObject var user: User
-    @Environment(\.dismiss) var dismiss
+
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             Section(header: Text("Szczegóły podróży").font(.title2)) {
                 TextField("Nazwa podróży", text: $tripName)
                 DatePicker("Data podróży", selection: $tripDate, displayedComponents: .date)
@@ -30,28 +39,46 @@ struct AddJourneyView: View {
                     .background(Color(.systemGray5))
                     .cornerRadius(8)
             }
-            Spacer()
-                .frame(height: 40)
+
+            Spacer().frame(height: 40)
+
             Section(header: Text("Lokalizacja").font(.title2)) {
-                HStack {
-                    Text("Wybrana lokalizacja")
-                        .padding(.vertical, 8)
-                    Spacer()
-                    Text(locationName)
-                        .foregroundColor(.gray)
-                }
-                HStack {
-                    Spacer()
-                    Button("Wybierz na mapie") {
-                        showMapView.toggle()
+                VStack(alignment: .leading) {
+                    Text("Pinezki").font(.headline)
+
+                    ForEach(pins.indices, id: \.self) { index in
+                        let pin = pins[index]
+                        HStack {
+                            VStack(alignment: .leading) {
+                                let pinTitle = pin.title.isEmpty ? "📍 \(pin.lat), \(pin.lon)" : pin.title
+                                Text(pinTitle)
+                                    .font(.subheadline)
+
+                                if let name = pin.imageName {
+                                    Text(name)
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            Spacer()
+                        }
                     }
-                    .frame(maxWidth: 200)
-                    .padding()
-                    .background(Color.teal)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
+
+
+                    HStack {
+                        Spacer()
+                        Button("Wybierz na mapie") {
+                            showMapView.toggle()
+                        }
+                        .frame(maxWidth: 200)
+                        .padding()
+                        .background(Color.teal)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                    }
                 }
             }
+
             Spacer()
         }
         .padding()
@@ -60,15 +87,55 @@ struct AddJourneyView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Zapisz") {
-                    print("Zapisywanie podróży: \(tripName)")
-                    dismiss()
+//                    let newTrip = Trip(context: viewContext)
+//                    newTrip.tripname = tripName
+//                    newTrip.date = tripDate
+//                    newTrip.notes = tripNotes
+//                    newTrip.tripuser = user
+//
+//                    for pinData in pins {
+//                        let pin = Pin(context: viewContext)
+//                        pin.lat = pinData.lat
+//                        pin.lon = pinData.lon
+//                        pin.name = pinData.title
+//                        pin.pintrip = newTrip
+//
+//                        if let imageName = pinData.imageName,
+//                           let image = UIImage(named: imageName),
+//                           let imageData = image.jpegData(compressionQuality: 0.8) {
+//                            let photo = Photo(context: viewContext)
+//                            photo.photo = imageData
+//                            photo.photopin = pin
+//                            pin.addToPinphoto(photo)
+//                        }
+//
+//                        newTrip.addToTrippin(pin)
+//                    }
+//
+//                    user.addToUsertrip(newTrip)
+//
+//                    do {
+//                        try viewContext.save()
+//                        dismiss()
+//                    } catch {
+//                        print("Błąd zapisu: \(error.localizedDescription)")
+//                    }
                 }
                 .disabled(tripName.isEmpty)
             }
         }
         .sheet(isPresented: $showMapView) {
-//            MapView(selectedLocation: $selectedLocation, locationName: $locationName)
-            AddLocation()
+            AddLocation(
+                tempPins: $pins,
+                isDone: $isDone
+            )
+        }
+        .onChange(of: isDone) { done in
+            if done {
+                showMapView = false
+                isDone = false
+                print("Dodano nową pinezkę: journey view \(pins.count)")
+            }
         }
     }
 }
