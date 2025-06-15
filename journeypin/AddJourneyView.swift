@@ -20,14 +20,14 @@ struct AddJourneyView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var user: User
     @Environment(\.dismiss) var dismiss
-
+    
     @State var tripName: String = ""
     @State var tripDate: Date = Date()
     @State var tripNotes: String = ""
     @State private var pins: [PinData] = []
     @State private var isDone: Bool = false
     @State var showMapView: Bool = false
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Section(header: Text("Szczegóły podróży").font(.title2)) {
@@ -39,46 +39,48 @@ struct AddJourneyView: View {
                     .background(Color(.systemGray5))
                     .cornerRadius(8)
             }
-
+            
             Spacer().frame(height: 40)
-
-            Section(header: Text("Lokalizacja").font(.title2)) {
+            
+            Section(header:
+                HStack {
+                    Text("Lokalizacja")
+                        .font(.title2)
+                    Spacer()
+                    Button(action: {
+                        showMapView.toggle()
+                    }) {
+                        Text("Dodaj nową pinezkę")
+                    }
+                    .padding(15)
+                    .background(Color.teal)
+                    .foregroundColor(.white)
+                    .cornerRadius(20)
+                }
+            ) {
                 VStack(alignment: .leading) {
                     Divider()
-                    ForEach(pins.indices, id: \.self) { index in
-                        let pin = pins[index]
-                        HStack {
+                    List {
+                        ForEach(pins) { pin in
                             VStack(alignment: .leading) {
                                 let pinTitle = pin.title.isEmpty ? "📍 \(pin.lat), \(pin.lon)" : pin.title
                                 Text(pinTitle)
                                     .font(.subheadline)
-
+                                
                                 if let name = pin.imageName {
                                     Text(name)
                                         .font(.caption)
                                         .foregroundColor(.gray)
                                 }
                             }
-                            Spacer()
+                            .padding(.vertical, 2)
                         }
-                        Divider()
+                        .onDelete(perform: deletePin)
                     }
-
-
-                    HStack {
-                        Spacer()
-                        Button("Dodaj nową pinezkę") {
-                            showMapView.toggle()
-                        }
-                        .frame(maxWidth: 200)
-                        .padding()
-                        .background(Color.teal)
-                        .foregroundColor(.white)
-                        .cornerRadius(20)
-                    }
+                    .listStyle(.insetGrouped)
+                    .padding(1)
                 }
             }
-
             Spacer()
         }
         .padding()
@@ -92,7 +94,7 @@ struct AddJourneyView: View {
                     newTrip.date = tripDate
                     newTrip.notes = tripNotes
                     newTrip.tripuser = user
-
+                    
                     for pinData in pins {
                         let pin = Pin(context: viewContext)
                         pin.lat = pinData.lat
@@ -126,5 +128,9 @@ struct AddJourneyView: View {
                 print("journey view \(pins.count)")
             }
         }
+    }
+    
+    private func deletePin(at offsets: IndexSet) {
+        pins.remove(atOffsets: offsets)
     }
 }
