@@ -1,25 +1,17 @@
 //
-//  AddJourneyView.swift
+//  EditJourneyView.swift
 //  journeypin
 //
-//  Created by maria on 14/06/2025.
+//  Created by mateusz on 15/06/2025.
 //
 
 import SwiftUI
-//import CoreLocation
 
-struct PinData: Identifiable {
-    var id = UUID()
-    var lat: Double
-    var lon: Double
-    var title: String
-    var imageName: String?
-}
-
-struct AddJourneyView: View {
+struct EditJourneyView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject var user: User
     @Environment(\.dismiss) var dismiss
+    
+    var trip: Trip
     
     @State var tripName: String = ""
     @State var tripDate: Date = Date()
@@ -77,6 +69,7 @@ struct AddJourneyView: View {
                         }
                         .onDelete(perform: deletePin)
                         .onMove(perform: movePin)
+
                     }
                     .listStyle(.insetGrouped)
                     .padding(1)
@@ -85,27 +78,31 @@ struct AddJourneyView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Nowa podróż")
+        .navigationTitle("Edytuj podróż")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Zapisz") {
-                    let newTrip = Trip(context: viewContext)
-                    newTrip.tripname = tripName
-                    newTrip.date = tripDate
-                    newTrip.notes = tripNotes
-                    newTrip.tripuser = user
+                    trip.tripname = tripName
+                    trip.date = tripDate
+                    trip.notes = tripNotes
+                    
+                    if let existingPins = trip.trippin?.allObjects as? [Pin] {
+                        for pin in existingPins {
+                            viewContext.delete(pin)
+                        }
+                    }
                     
                     for pinData in pins {
                         let pin = Pin(context: viewContext)
                         pin.lat = pinData.lat
                         pin.lon = pinData.lon
                         pin.name = pinData.title
-                        pin.pintrip = newTrip
+                        pin.pintrip = trip
                         pin.photo = pinData.imageName
-                        newTrip.addToTrippin(pin)
+                        trip.addToTrippin(pin)
                     }
-                    user.addToUsertrip(newTrip)
+                    
                     do {
                         try viewContext.save()
                         dismiss()
@@ -126,9 +123,22 @@ struct AddJourneyView: View {
             if done {
                 showMapView = false
                 isDone = false
-                print("journey view \(pins.count)")
+                print("edit journey view \(pins.count)")
             }
         }
+        .onAppear {
+            loadTripData()
+        }
+    }
+    
+    private func loadTripData() {
+        tripName = trip.tripname ?? ""
+        tripDate = trip.date ?? Date()
+        tripNotes = trip.notes ?? ""
+        pins = trip.pinArray.map({
+            PinData(lat: $0.lat, lon: $0.lon, title: $0.name ?? "", imageName: $0.photo)
+        })
+       
     }
     private func movePin(from source: IndexSet, to destination: Int) {
         pins.move(fromOffsets: source, toOffset: destination)
