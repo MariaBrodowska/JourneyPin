@@ -21,6 +21,10 @@ extension Trip {
     @NSManaged public var tripname: String?
     @NSManaged public var trippin: NSSet?
     @NSManaged public var tripuser: User?
+    public var pinArray: [Pin] {
+        let set = trippin as? Set<Pin> ?? []
+        return set.sorted{$0.name! < $1.name!}
+    }
 
 }
 
@@ -42,5 +46,5 @@ extension Trip {
 }
 
 extension Trip : Identifiable {
-
+    
 }
