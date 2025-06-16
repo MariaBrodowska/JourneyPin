@@ -1,11 +1,3 @@
-//
-//  User+CoreDataProperties.swift
-//  journeypin
-//
-//  Created by maria on 15/06/2025.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -21,8 +13,6 @@ extension User {
     @NSManaged public var usertrip: NSSet?
 
 }
-
-// MARK: Generated accessors for usertrip
 extension User {
 
     @objc(addUsertripObject:)

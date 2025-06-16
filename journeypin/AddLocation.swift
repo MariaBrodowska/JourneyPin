@@ -1,10 +1,3 @@
-//
-//  AddLocation.swift
-//  journeypin
-//
-//  Created by maria on 15/06/2025.
-//
-
 import SwiftUI
 import MapKit
 
@@ -51,7 +44,6 @@ struct AddLocation: View {
 
                         let newPin = PinData(lat: lat, lon: lon, title: pinTitle, imageName: selectedImageName)
                         tempPins.append(newPin)
-//                        print("Dodano nową pinezkę: \(tempPins.count)")
                         isDone = true
                         dismiss()
                     }

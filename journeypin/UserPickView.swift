@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  journeypin
-//
-//  Created by maria on 27/05/2025.
-//
-
 import SwiftUI
 import CoreData
 
@@ -67,11 +60,4 @@ struct UserPickView: View {
             }
         }
     }
-}
-        
-
-
-#Preview {
-    UserPickView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-        
 }
