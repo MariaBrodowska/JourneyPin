@@ -3,27 +3,15 @@ import SwiftUI
 struct AddUserView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var nazwa: String = ""
-    
-    // Using an environment variable to dismiss the view after adding a user
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-               
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-
-                VStack(spacing: 30) {
-                    Spacer()
-
-                   
+        VStack(spacing: 30) {
+            Spacer()
                     Text("Dodaj profil")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white.opacity(0.85))
+                        .foregroundStyle(Color.black.opacity(0.85))
 
                     
                     VStack(spacing: 10) {
@@ -35,7 +23,7 @@ struct AddUserView: View {
                             .foregroundColor(.black))
                             .padding()
                             .frame(maxWidth: 300)
-                            .background(.white.opacity(0.9))
+                            .background(.gray.opacity(0.5))
                             .cornerRadius(15)
                             }
                     .padding(.horizontal, 40)
@@ -54,8 +42,6 @@ struct AddUserView: View {
                     Spacer()
                 }
                 .padding()
-            }
-        }
     }
     
     private func addUser() {
@@ -72,8 +58,4 @@ struct AddUserView: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
-}
-
-#Preview {
-    AddUserView()
 }

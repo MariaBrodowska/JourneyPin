@@ -1,11 +1,3 @@
-//
-//  Trip+CoreDataProperties.swift
-//  journeypin
-//
-//  Created by Al Sneed on 03/06/2025.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -28,7 +20,6 @@ extension Trip {
 
 }
 
-// MARK: Generated accessors for trippin
 extension Trip {
 
     @objc(addTrippinObject:)

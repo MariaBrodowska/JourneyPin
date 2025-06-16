@@ -1,20 +1,4 @@
-//
-//  HomePageView.swift
-//  journeypin
-//
-//  Created by Al Sneed on 03/06/2025.
-//
-
 import SwiftUI
-
-// This is a placeholder for where "Your Journeys" will navigate to.
-// You'll replace this with your actual Journeys List view.
-//struct JourneysListView: View {
-//    var body: some View {
-//        Text("Your Journeys List Will Appear Here")
-//            .navigationTitle("My Journeys") // Example title for the next screen
-//    }
-//}
 
 struct HomePageView: View {
     @Environment(\.managedObjectContext) private var viewContext;

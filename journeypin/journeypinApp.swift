@@ -1,10 +1,3 @@
-//
-//  journeypinApp.swift
-//  journeypin
-//
-//  Created by maria on 27/05/2025.
-//
-
 import SwiftUI
 
 @main

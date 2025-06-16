@@ -1,10 +1,3 @@
-//
-//  JourneyListView.swift
-//  journeypin
-//
-//  Created by maria on 14/06/2025.
-//
-
 import SwiftUI
 import CoreData
 

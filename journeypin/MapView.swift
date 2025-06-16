@@ -1,10 +1,3 @@
-//
-//  MapView.swift
-//  journeypin
-//
-//  Created by maria on 14/06/2025.
-//
-
 import SwiftUI
 import MapKit
 
@@ -58,8 +51,7 @@ struct MapView: View {
                     .offset(y: -30)
                 }
             }
-            
-            //wspolrzedne
+        
             VStack {
                 Spacer()
                 HStack{
@@ -96,7 +88,6 @@ struct MapView: View {
                     .background(.ultraThinMaterial)
                     .cornerRadius(10)
                     
-                    //zdjecie
                     if let name = selectedImageName {
                         Image(name)
                             .resizable()
