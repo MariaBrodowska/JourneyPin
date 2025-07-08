@@ -61,12 +61,12 @@ JourneyPin is a modern iOS application that allows users to organize and store t
   </tr>
 </table>
 
-### Journey Details & Options
+### Journey Details
 
 <table align="center">
   <tr>
     <th>Journey Details</th>
-    <th>Journey Options</th>
+    <th>Journey Pins</th>
   </tr>
   <tr>
     <td>
@@ -82,8 +82,8 @@ JourneyPin is a modern iOS application that allows users to organize and store t
 
 <table align="center">
   <tr>
-    <th>Edit View</th>
-    <th>Delete Options</th>
+    <th>Edit Journey</th>
+    <th>Delete Pin</th>
     <th>Change Pin Position</th>
   </tr>
   <tr>
@@ -118,10 +118,10 @@ JourneyPin is a modern iOS application that allows users to organize and store t
 
 ### Technologies Used
 
+- **Swift** - Programming language for iOS development
 - **SwiftUI** - Modern declarative UI framework
 - **Core Data** - Local data persistence
 - **MapKit** - Interactive map functionality
-- **PhotosPicker** - Image selection and management
 
 ## 🚀 Getting Started
 
